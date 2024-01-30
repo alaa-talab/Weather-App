@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Updated import
 import UserContext from '../UserContext';
 
+
 function Login() {
     const [loginInput, setLoginInput] = useState('');
     const [password, setPassword] = useState('');
@@ -52,5 +53,6 @@ function Login() {
         </div>
     );
 }
+
 
 export default Login;

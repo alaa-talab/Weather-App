@@ -19,12 +19,12 @@ const UserProvider = ({ children }) => {
 
     const handleLogin = (token) => {
         localStorage.setItem('token', token);
-        setUserState({ ...userState, isAuthenticated: true, token });
+        setUserState(prevState => ({ ...prevState, isAuthenticated: true, token }));
     };
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        setUserState({ ...userState, isAuthenticated: false, token: null });
+        setUserState(prevState => ({ ...prevState, isAuthenticated: false, token: null }));
     };
 
     // Pass the userState, handleLogin, and handleLogout function to the context

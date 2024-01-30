@@ -45,10 +45,12 @@ router.get('/forecast', async (req, res) => {
     }
 });
 
-router.post('/saveWeather', async (req, res) => {
+router.post('/saveWeather', authMiddleware, async (req, res) => {
     const { city, data } = req.body;
+    const userId = req.user.id; // Assuming you have the user's ID available in req.user
+
     try {
-        const newWeatherHistory = new WeatherHistory({ city, data });
+        const newWeatherHistory = new WeatherHistory({ userId, city, data });
         await newWeatherHistory.save();
         res.status(200).send('Weather data saved');
     } catch (error) {

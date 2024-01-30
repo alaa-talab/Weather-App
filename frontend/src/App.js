@@ -33,7 +33,8 @@ function App() {
     };
 
     return (
-        <UserContext.Provider value={{ ...userState, handleLogin, handleLogout }}>
+        <UserContext.Provider value={{ userState, handleLogin, handleLogout }}>
+
             <Router>
                 <div className="App">
                     <nav>

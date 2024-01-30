@@ -4,14 +4,15 @@ import UserContext from '../UserContext'; // Adjust the import path as per your 
 import './HomePage.css'; // Ensure you have this CSS file for styling
 
 function HomePage() {
+    const context = useContext(UserContext);
+    console.log(context);
     const [city, setCity] = useState('');
     const [weatherData, setWeatherData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [searchHistory, setSearchHistory] = useState([]);
-
-    const { isAuthenticated, token, handleLogout } = useContext(UserContext); // Destructure handleLogout
-
+    const { userState, handleLogout } = useContext(UserContext);
+    const { isAuthenticated, token } = userState;
 
     const fetchWeatherData = async (city) => {
         if (!isAuthenticated) {
@@ -41,18 +42,21 @@ function HomePage() {
             await axios.post(`http://localhost:5000/api/weather/saveWeather`, { city, data }, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-            fetchSearchHistory();
+            await fetchSearchHistory();
         } catch (err) {
             console.error('Error saving weather search:', err);
         }
     };
 
     const fetchSearchHistory = useCallback(async () => {
+        console.log("Token used for fetching search history:", token); // Debug token
+   
         try {
             const response = await axios.get(`http://localhost:5000/api/weather/searchHistory`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             setSearchHistory(response.data);
+            console.log("Search history received:", response.data); 
         } catch (err) {
             console.error('Error fetching search history:', err);
         }
@@ -104,7 +108,10 @@ function HomePage() {
         }
     };
     
-
+    if (!userState) {
+        console.error('UserState is undefined');
+        return <div>Loading...</div>; // or handle the error as appropriate
+    }
     return (
         <div className="homepage-container">
             <h1>Weather Search</h1>
