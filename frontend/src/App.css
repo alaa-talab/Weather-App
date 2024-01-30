@@ -1,0 +1,66 @@
+/* Reset some default styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  line-height: 1.6;
+}
+
+/* Main App container */
+.App {
+  text-align: center;
+}
+
+/* Navigation Styles */
+nav {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 0;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;             /* Use flexbox for horizontal layout */
+  justify-content: center;   /* Center the navigation items */
+  align-items: center;       /* Align items vertically */
+}
+nav ul li {
+  margin: 0 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+nav a:hover {
+  color: #ccc;
+}
+
+/* Link Active State Styling */
+nav a.active {
+  color: #ffd700;
+  font-weight: bold;
+}
+
+/* Content Container */
+.content {
+  padding: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav ul {
+      flex-direction: row; 
+       /* Stack items vertically on small screens */
+  }
+
+  
+}
