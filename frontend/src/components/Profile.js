@@ -6,7 +6,8 @@ import './Profile.css';
 function Profile() {
     const [userDetails, setUserDetails] = useState({ username: '' });
     const [errorMessage, setErrorMessage] = useState('');
-    const { userState } = useContext(UserContext); // Using UserContext
+    const { userState } = useContext(UserContext);
+    
 
     // Fetch user details from backend
     useEffect(() => {
@@ -28,12 +29,12 @@ function Profile() {
             }
         };
 
-        if (userState.isAuthenticated) {
+        if (userState?.isAuthenticated) { // Use optional chaining
             fetchUserDetails();
         } else {
             setErrorMessage("User not authenticated");
         }
-    }, [userState.isAuthenticated, userState.token]);
+    }, [userState?.isAuthenticated, userState?.token]); // Use optional chaining
 
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -55,6 +56,10 @@ function Profile() {
             }
         }
     };
+
+    if (!userState) { // Check if userState is available
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="profile-container">
